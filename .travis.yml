@@ -1,6 +1,9 @@
 dist: xenial
 sudo: false
 language: python
+arch:
+  - arm64
+  - amd64
 python: 3.7
 cache: pip
 env:
@@ -12,6 +15,7 @@ before_script:
 - find $PWD/test-data/patches/ -name '*.patch' -exec git -C spark-source apply '{}' \+
 install:
 - pip install .
+- pip install --upgrade pytest
 script:
 - "./tests/mypy_test.py -p 3.6 3.7"
 - MYPY_TEST_PREFIX=$PWD MYPYPATH=$PWD/third_party/3 pytest
